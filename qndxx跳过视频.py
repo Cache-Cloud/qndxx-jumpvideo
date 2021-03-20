@@ -29,9 +29,35 @@ def main():
             f.close()
         else:
             f.close()
+            
+def main1():
+    for a in os.listdir(yourstorage+"Android/data/com.tencent.mm/files/VideoCache/toolsmp"):
+        if os.path.isdir(yourstorage+"Android/data/com.tencent.mm/files/VideoCache/toolsmp/"+a)!= True:
+            continue
+        f=open(yourstorage+"Android/data/com.tencent.mm/files/VideoCache/toolsmp/"+a+"/config.prop","r",encoding="utf-8")
+        if f.read().find("cyol.com")!= -1 :
+            h=open(yourstorage+"Android/data/com.tencent.mm/files/VideoCache/toolsmp/"+a+"/0.seg","rb")
+            if h.read(3479) == video1 :
+                h.close()
+                print("true")
+                continue
+            else:
+                print("false")
+                h.close()
+            for n in os.listdir(yourstorage+"Android/data/com.tencent.mm/files/VideoCache/toolsmp/"+a):
+                if os.path.splitext(yourstorage+"Android/data/com.tencent.mm/files/VideoCache/toolsmp/"+a+"/"+n)[1]==".seg" and os.path.splitext("/storage/emulated/0/Android/data/com.tencent.mm/files/VideoCache/toolsmp/"+a+"/"+n)[0]!="0":
+                    os.remove(yourstorage+"Android/data/com.tencent.mm/files/VideoCache/toolsmp/"+a+"/"+n)
+            f.close()
+            f=open(yourstorage+"Android/data/com.tencent.mm/files/VideoCache/toolsmp/"+a+"/0.seg","wb+")
+            f.write(video1)
+            f.close()
+        else:
+            f.close()
 
 
 while True:
     if os.path.exists(yourstorage+"Android/data/com.tencent.mm/files/VideoCache/tools") == True :
         main()
+    if os.path.exists(yourstorage+"Android/data/com.tencent.mm/files/VideoCache/toolsmp") == True :
+        main1()
     time.sleep(3)
